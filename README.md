@@ -1,3 +1,3 @@
 # MobileSystemeUndCloud
 
-Test commit
+Repository for the Mobile Systeme und Cloud course.
