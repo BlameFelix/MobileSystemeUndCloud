@@ -1,26 +1,39 @@
 package com.example.mobileundcloudpraktikum
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main2.*
 
-class MainActivity : AppCompatActivity() {
+class Main2Activity : AppCompatActivity() {
+    val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 50
+    val PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 51
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+        )
+
+        ActivityCompat.requestPermissions(
+            this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+            PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION
+        )
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main2)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Execute order 66", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        val tv = findViewById<TextView>(R.id.textView1)
+        val fl = FabListener(tv, this)
+
+        fab.setOnClickListener(fl)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,4 +65,5 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }
