@@ -48,13 +48,15 @@ class FabListener(tv: TextView, tv3: TextView, activity: Activity) : View.OnClic
     }
 
     fun readAcc() {
-        if (!sensorActive) {
-            sensorManager.registerListener(accControl, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
-            sensorActive = true
-        }
-        else {
-            sensorManager.unregisterListener(accControl)
-            sensorActive = false
+        sensorActive = when (sensorActive) {
+            false -> {
+                sensorManager.registerListener(accControl, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
+                true
+            }
+            true -> {
+                sensorManager.unregisterListener(accControl)
+                false
+            }
         }
     }
 
