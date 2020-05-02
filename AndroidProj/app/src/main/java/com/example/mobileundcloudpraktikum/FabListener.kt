@@ -13,11 +13,13 @@ import android.widget.TextView
 import com.google.android.gms.location.LocationServices
 
 
-class FabListener(tv: TextView, tv3: TextView, activity: Activity) : View.OnClickListener {
+class FabListener(tv: TextView, tv2: TextView, tv3: TextView, activity: Activity) : View.OnClickListener {
     val tv: TextView = tv
+    val tv2: TextView = tv2
     val tv3: TextView = tv3
     val activity: Activity = activity
     val accControl = AccelerometerController(tv3)
+    val lightControl = LightsensorController(tv2)
     var sensorActive: Boolean = false
     var sensorManager: SensorManager = activity.getSystemService(SENSOR_SERVICE) as SensorManager
 
@@ -44,6 +46,16 @@ class FabListener(tv: TextView, tv3: TextView, activity: Activity) : View.OnClic
     }
 
     fun readPhotometer() {
+        sensorActive = when (sensorActive) {
+            false -> {
+                sensorManager.registerListener(lightControl, sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL)
+                true
+            }
+            true -> {
+                sensorManager.unregisterListener(lightControl)
+                false
+            }
+        }
 
     }
 
