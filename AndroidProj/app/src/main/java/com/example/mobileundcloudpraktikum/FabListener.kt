@@ -20,8 +20,10 @@ class FabListener(tv: TextView, tv2: TextView, tv3: TextView, activity: Activity
     val activity: Activity = activity
     val accControl = AccelerometerController(tv3)
     val lightControl = LightsensorController(tv2)
-    var sensorActive: Boolean = false
+    var accSensorActive: Boolean = false
+    var lightSensorActive: Boolean = false
     var sensorManager: SensorManager = activity.getSystemService(SENSOR_SERVICE) as SensorManager
+
 
     override fun onClick(v: View?) {
         readGPS()
@@ -46,7 +48,7 @@ class FabListener(tv: TextView, tv2: TextView, tv3: TextView, activity: Activity
     }
 
     fun readPhotometer() {
-        sensorActive = when (sensorActive) {
+        lightSensorActive = when (lightSensorActive) {
             false -> {
                 sensorManager.registerListener(lightControl, sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL)
                 true
@@ -60,7 +62,7 @@ class FabListener(tv: TextView, tv2: TextView, tv3: TextView, activity: Activity
     }
 
     fun readAcc() {
-        sensorActive = when (sensorActive) {
+        accSensorActive = when (accSensorActive) {
             false -> {
                 sensorManager.registerListener(accControl, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
                 true
