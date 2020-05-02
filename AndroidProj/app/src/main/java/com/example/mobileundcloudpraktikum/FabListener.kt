@@ -13,10 +13,12 @@ import android.widget.TextView
 import com.google.android.gms.location.LocationServices
 
 
-class FabListener(tv: TextView, tv3: TextView, activity: Activity) : View.OnClickListener, SensorEventListener {
+class FabListener(tv: TextView, tv3: TextView, activity: Activity) : View.OnClickListener {
     val tv: TextView = tv
     val tv3: TextView = tv3
     val activity: Activity = activity
+    val accControl = AccelerometerController(tv3)
+    var sensorActive: Boolean = false
     var sensorManager: SensorManager = activity.getSystemService(SENSOR_SERVICE) as SensorManager
 
     override fun onClick(v: View?) {
@@ -46,16 +48,14 @@ class FabListener(tv: TextView, tv3: TextView, activity: Activity) : View.OnClic
     }
 
     fun readAcc() {
-        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-
-    }
-
-    override fun onSensorChanged(event: SensorEvent?) {
-        tv3.text = "x: ${event!!.values[0]}\n" + "y: ${event!!.values[1]}\n" + "z: ${event!!.values[2]}"
-        sensorManager.unregisterListener(this)
+        if (!sensorActive) {
+            sensorManager.registerListener(accControl, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
+            sensorActive = true
+        }
+        else {
+            sensorManager.unregisterListener(accControl)
+            sensorActive = false
+        }
     }
 
 }
