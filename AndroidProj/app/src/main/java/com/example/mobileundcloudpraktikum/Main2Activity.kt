@@ -30,9 +30,10 @@ class Main2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
         setSupportActionBar(toolbar)
 
-        val tv = findViewById<TextView>(R.id.textView1)
+        val tv1 = findViewById<TextView>(R.id.textView1)
+        val tv2 = findViewById<TextView>(R.id.textView2)
         val tv3 = findViewById<TextView>(R.id.textView3)
-        val fl = FabListener(tv, tv3, this)
+        val fl = FabListener(tv1, tv2, tv3, this)
 
         fab.setOnClickListener(fl)
     }
