@@ -5,7 +5,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.widget.TextView
 
-class AccelerometerController(val tv3: TextView) : SensorEventListener {
+class AccelerometerController(private val tv3: TextView) : SensorEventListener {
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 

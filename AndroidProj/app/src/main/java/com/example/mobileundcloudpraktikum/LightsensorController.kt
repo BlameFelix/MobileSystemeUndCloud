@@ -5,7 +5,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.widget.TextView
 
-class LightsensorController (val tv2: TextView) : SensorEventListener {
+class LightsensorController (private val tv2: TextView) : SensorEventListener {
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 

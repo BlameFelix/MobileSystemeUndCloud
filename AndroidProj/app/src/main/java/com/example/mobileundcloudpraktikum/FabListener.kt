@@ -4,8 +4,6 @@ package com.example.mobileundcloudpraktikum
 import android.app.Activity
 import android.content.Context.SENSOR_SERVICE
 import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.location.Location
 import android.view.View
@@ -13,16 +11,13 @@ import android.widget.TextView
 import com.google.android.gms.location.LocationServices
 
 
-class FabListener(tv: TextView, tv2: TextView, tv3: TextView, activity: Activity) : View.OnClickListener {
-    val tv: TextView = tv
-    val tv2: TextView = tv2
-    val tv3: TextView = tv3
-    val activity: Activity = activity
-    val accControl = AccelerometerController(tv3)
-    val lightControl = LightsensorController(tv2)
-    var accSensorActive: Boolean = false
-    var lightSensorActive: Boolean = false
-    var sensorManager: SensorManager = activity.getSystemService(SENSOR_SERVICE) as SensorManager
+class FabListener(private val tv1: TextView, tv2: TextView, tv3: TextView, private val activity: Activity) : View.OnClickListener {
+
+    private val accControl = AccelerometerController(tv3)
+    private val lightControl = LightsensorController(tv2)
+    private var accSensorActive: Boolean = false
+    private var lightSensorActive: Boolean = false
+    private var sensorManager: SensorManager = activity.getSystemService(SENSOR_SERVICE) as SensorManager
 
 
     override fun onClick(v: View?) {
@@ -39,10 +34,10 @@ class FabListener(tv: TextView, tv2: TextView, tv3: TextView, activity: Activity
             if (location != null) {
                 var t: String = "lat: " + location.latitude.toString() + "\n"
                 t += "long: " + location.longitude.toString()
-                tv.text = t
+                tv1.text = t
             }
             else {
-                tv.text = "Unexpected Error!"
+                tv1.text = "Unexpected Error!"
             }
         }
     }
