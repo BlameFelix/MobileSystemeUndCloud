@@ -1,9 +1,16 @@
 package com.example.mobileundcloudpraktikum
 
+import android.content.Context
 import android.content.Intent
+import android.hardware.SensorManager
 import android.os.Bundle
+import android.text.Layout
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 
@@ -16,10 +23,17 @@ class Main3Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main3)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        var linLayout = findViewById<LinearLayout>(R.id.layout)
+        var tv1 = findViewById<TextView>(R.id.tv1ac3)
+        var fl = FabListener2(tv1, this, linLayout)
+
+        fab.setOnClickListener(fl)
+
+
+
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
