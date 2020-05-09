@@ -1,0 +1,5 @@
+Der Lichtsensor wird ausgelesen.
+Unterschreitet der Wert 12lx wird ein Bild von Darth Vader angezeigt, während bei höheren Werten Yoda zu sehen ist.
+
+Team: Auch Namenlos Grandios
+Mitglieder: Patrik Höpfl, Felix Rilling
