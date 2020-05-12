@@ -27,4 +27,4 @@ jobs:
 
       # Step 3: Check the code with Android linter
       - name: Run Android Linter
-        run: cd AndroidProj && ./gradlew lintFix
+        run: cd AndroidProj && ./gradlew lint
