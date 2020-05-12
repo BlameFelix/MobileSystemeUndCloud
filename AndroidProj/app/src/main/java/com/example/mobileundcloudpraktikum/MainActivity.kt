@@ -17,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -52,7 +53,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     fun updateUI(account: GoogleSignInAccount?) {
         when (account) {
+            //wenn kein account verbunden ist (Kein nutzer eingeloggt)
             null -> {
+                findViewById<AppBarLayout>(R.id.appbar).visibility = View.INVISIBLE
                 findViewById<TextView>(R.id.tvHeader).text = "Willkommen bei unserer App!"
 
                 findViewById<TextView>(R.id.email).visibility = View.INVISIBLE
@@ -63,7 +66,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 findViewById<TextView>(R.id.secondText).visibility = View.VISIBLE
                 findViewById<SignInButton>(R.id.sign_in_button).visibility = View.VISIBLE
             }
+            //wenn ein account verbunden ist (Nutzer ist eingeloggt)
             else -> {
+                findViewById<AppBarLayout>(R.id.appbar).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.tvHeader).text = "Willkommen zurück " + account.displayName
 
                 findViewById<TextView>(R.id.email).text = "Email: " + account.email
