@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1047518041749-khu4dnb1bbtslaq1fghcva9crbe4rjcf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobileundcloudpraktikum",
+            "certificate_hash": "516e602e3c5d3e21dc9c0757037dd988b07f9e87"
+          }
+        },
+        {
           "client_id": "1047518041749-1r6ittls8evtkpr08ptjbvsupjhao5mq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -36,7 +44,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1047518041749-bgd9d9c4jpos1eueiebrmhdaqp9o5qta.apps.googleusercontent.com",
+              "client_id": "1047518041749-iv3h87p2p46q6mtfjvhq0ckv8ia4sjbq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
