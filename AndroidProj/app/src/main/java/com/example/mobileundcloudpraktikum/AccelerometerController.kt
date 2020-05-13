@@ -8,7 +8,6 @@ import android.widget.TextView
 class AccelerometerController(private val tv3: TextView) : SensorEventListener {
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-
     }
 
     override fun onSensorChanged(event: SensorEvent?) {

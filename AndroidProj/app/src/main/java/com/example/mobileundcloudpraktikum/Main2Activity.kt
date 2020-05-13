@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity() {
@@ -67,5 +66,4 @@ class Main2Activity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }
