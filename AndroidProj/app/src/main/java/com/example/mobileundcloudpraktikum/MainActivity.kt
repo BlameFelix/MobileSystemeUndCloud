@@ -1,5 +1,7 @@
 package com.example.mobileundcloudpraktikum
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -19,11 +21,16 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.RemoteMessage
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val RC_SIGN_IN: Int = 9001
     lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val TAG = "MyFirebaseMsgService"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +42,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(this)
         findViewById<Button>(R.id.logout).setOnClickListener(this)
+
+        val channelId = getString(R.string.default_notification_channel_id)
+        val channelName = getString(R.string.default_notification_channel_name)
+        val notificationManager = getSystemService(
+            NotificationManager::class.java
+        )
+        notificationManager.createNotificationChannel(
+            NotificationChannel(
+                channelId,
+                channelName, NotificationManager.IMPORTANCE_LOW
+            )
+        )
+
+        val random = Random()
+        val fm = FirebaseMessaging.getInstance()
+        val projectID = "1047518041749"
+        Log.d(TAG, "Try To send Message at Server: $projectID")
+        fm.send(RemoteMessage.Builder("$projectID@gcm.googleapis.com")
+            .setMessageId("" + random.nextInt())
+            .addData("Brust", "Nachricht junge")
+            .addData("Alge", "2.2.2.2.2.2")
+            .addData("action", "ECHO")
+            .build())
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Execute order 66", Snackbar.LENGTH_LONG)
