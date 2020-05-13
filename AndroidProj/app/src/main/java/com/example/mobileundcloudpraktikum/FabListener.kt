@@ -1,6 +1,5 @@
 package com.example.mobileundcloudpraktikum
 
-
 import android.app.Activity
 import android.content.Context.SENSOR_SERVICE
 import android.hardware.Sensor
@@ -10,15 +9,18 @@ import android.view.View
 import android.widget.TextView
 import com.google.android.gms.location.LocationServices
 
-
-class FabListener(private val tv1: TextView, tv2: TextView, tv3: TextView, private val activity: Activity) : View.OnClickListener {
+class FabListener(
+    private val tv1: TextView,
+    tv2: TextView,
+    tv3: TextView,
+    private val activity: Activity
+) : View.OnClickListener {
 
     private val accControl = AccelerometerController(tv3)
     private val lightControl = LightsensorController(tv2)
     private var accSensorActive: Boolean = false
     private var lightSensorActive: Boolean = false
     private var sensorManager: SensorManager = activity.getSystemService(SENSOR_SERVICE) as SensorManager
-
 
     override fun onClick(v: View?) {
         readGPS()
@@ -35,8 +37,7 @@ class FabListener(private val tv1: TextView, tv2: TextView, tv3: TextView, priva
                 var t: String = "lat: " + location.latitude.toString() + "\n"
                 t += "long: " + location.longitude.toString()
                 tv1.text = t
-            }
-            else {
+            } else {
                 tv1.text = "Unexpected Error!"
             }
         }
@@ -53,7 +54,6 @@ class FabListener(private val tv1: TextView, tv2: TextView, tv3: TextView, priva
                 false
             }
         }
-
     }
 
     fun readAcc() {
@@ -68,5 +68,4 @@ class FabListener(private val tv1: TextView, tv2: TextView, tv3: TextView, priva
             }
         }
     }
-
 }

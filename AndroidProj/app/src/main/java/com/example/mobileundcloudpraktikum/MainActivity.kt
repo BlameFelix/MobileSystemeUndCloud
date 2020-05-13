@@ -21,7 +21,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val RC_SIGN_IN: Int = 9001
     lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -36,7 +35,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(this)
         findViewById<Button>(R.id.logout).setOnClickListener(this)
-
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Execute order 66", Snackbar.LENGTH_LONG)
@@ -53,7 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     fun updateUI(account: GoogleSignInAccount?) {
         when (account) {
-            //wenn kein account verbunden ist (Kein nutzer eingeloggt)
+            // wenn kein account verbunden ist (Kein nutzer eingeloggt)
             null -> {
                 findViewById<AppBarLayout>(R.id.appbar).visibility = View.INVISIBLE
                 findViewById<TextView>(R.id.tvHeader).text = "Willkommen bei unserer App!"
@@ -66,7 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 findViewById<TextView>(R.id.secondText).visibility = View.VISIBLE
                 findViewById<SignInButton>(R.id.sign_in_button).visibility = View.VISIBLE
             }
-            //wenn ein account verbunden ist (Nutzer ist eingeloggt)
+            // wenn ein account verbunden ist (Nutzer ist eingeloggt)
             else -> {
                 findViewById<AppBarLayout>(R.id.appbar).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.tvHeader).text = "Willkommen zurück " + account.displayName
@@ -121,7 +119,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.logout -> {
                 mGoogleSignInClient.signOut()
-                Toast.makeText(getApplicationContext(),"Logged Out", Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show()
                 updateUI(null)
             }
         }
