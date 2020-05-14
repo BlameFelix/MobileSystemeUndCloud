@@ -1,7 +1,5 @@
 package com.example.mobileundcloudpraktikum
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -19,18 +17,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.RemoteMessage
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val RC_SIGN_IN: Int = 9001
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    private val TAG = "MyFirebaseMsgService"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +35,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(this)
         findViewById<Button>(R.id.logout).setOnClickListener(this)
+
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Execute order 66", Snackbar.LENGTH_LONG)
@@ -58,9 +52,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     fun updateUI(account: GoogleSignInAccount?) {
         when (account) {
-            // wenn kein account verbunden ist (Kein nutzer eingeloggt)
             null -> {
-                findViewById<AppBarLayout>(R.id.appbar).visibility = View.INVISIBLE
                 findViewById<TextView>(R.id.tvHeader).text = "Willkommen bei unserer App!"
 
                 findViewById<TextView>(R.id.email).visibility = View.INVISIBLE
@@ -71,9 +63,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 findViewById<TextView>(R.id.secondText).visibility = View.VISIBLE
                 findViewById<SignInButton>(R.id.sign_in_button).visibility = View.VISIBLE
             }
-            // wenn ein account verbunden ist (Nutzer ist eingeloggt)
             else -> {
-                findViewById<AppBarLayout>(R.id.appbar).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.tvHeader).text = "Willkommen zurück " + account.displayName
 
                 findViewById<TextView>(R.id.email).text = "Email: " + account.email
@@ -84,20 +74,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 findViewById<Button>(R.id.logout).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.secondText).visibility = View.INVISIBLE
                 findViewById<SignInButton>(R.id.sign_in_button).visibility = View.INVISIBLE
-
-                val random = Random()
-                val fm = FirebaseMessaging.getInstance()
-                val projectID = "1047518041749"
-                Log.d(TAG, "Try To send Message at Server: $projectID")
-                fm.send(RemoteMessage.Builder("$projectID@gcm.googleapis.com")
-                    .setMessageId("" + random.nextInt())
-                    .addData("vorname", "" + account.givenName)
-                    .addData("nachname", "" + account.familyName)
-                    .addData("email", "" + account.email)
-                    .addData("googleID", "" + account.id)
-                    .addData("clientToken", "" + account.idToken)
-                    .addData("action", "REGISTER")
-                    .build())
             }
         }
     }
@@ -140,7 +116,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.logout -> {
                 mGoogleSignInClient.signOut()
-                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show()
+                Toast.makeText(getApplicationContext(),"Logged Out", Toast.LENGTH_SHORT).show()
                 updateUI(null)
             }
         }
