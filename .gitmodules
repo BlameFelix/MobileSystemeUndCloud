@@ -1,0 +1,3 @@
+[submodule "xmppServer"]
+	path = xmppServer
+	url = git@github.com:BlameFelix/xmppServer.git

@@ -43,6 +43,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<SignInButton>(R.id.sign_in_button).setOnClickListener(this)
         findViewById<Button>(R.id.logout).setOnClickListener(this)
 
+        val channelId = getString(R.string.default_notification_channel_id)
+        val channelName = getString(R.string.default_notification_channel_name)
+        val notificationManager = getSystemService(
+            NotificationManager::class.java
+        )
+        notificationManager.createNotificationChannel(
+            NotificationChannel(
+                channelId,
+                channelName, NotificationManager.IMPORTANCE_LOW
+            )
+        )
+
+        val random = Random()
+        val fm = FirebaseMessaging.getInstance()
+        val projectID = "1047518041749"
+        Log.d(TAG, "Try To send Message at Server: $projectID")
+        fm.send(RemoteMessage.Builder("$projectID@gcm.googleapis.com")
+            .setMessageId("" + random.nextInt())
+            .addData("Brust", "Nachricht junge")
+            .addData("Alge", "2.2.2.2.2.2")
+            .addData("action", "ECHO")
+            .build())
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Execute order 66", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -84,20 +107,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 findViewById<Button>(R.id.logout).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.secondText).visibility = View.INVISIBLE
                 findViewById<SignInButton>(R.id.sign_in_button).visibility = View.INVISIBLE
-
-                val random = Random()
-                val fm = FirebaseMessaging.getInstance()
-                val projectID = "1047518041749"
-                Log.d(TAG, "Try To send Message at Server: $projectID")
-                fm.send(RemoteMessage.Builder("$projectID@gcm.googleapis.com")
-                    .setMessageId("" + random.nextInt())
-                    .addData("vorname", "" + account.givenName)
-                    .addData("nachname", "" + account.familyName)
-                    .addData("email", "" + account.email)
-                    .addData("googleID", "" + account.id)
-                    .addData("clientToken", "" + account.idToken)
-                    .addData("action", "REGISTER")
-                    .build())
             }
         }
     }
